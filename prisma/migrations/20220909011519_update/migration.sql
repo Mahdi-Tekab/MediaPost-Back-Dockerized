@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "PostDB" ALTER COLUMN "like" SET DEFAULT 0;
