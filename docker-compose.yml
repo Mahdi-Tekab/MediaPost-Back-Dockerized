@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  db:
+    image: postgres
+    profiles: ["dev","prod"]
+    restart: always
+    environment:
+      POSTGRES_USER: fqgnmepzxfknst
+      POSTGRES_PASSWORD: 85ea2f2d517ea9828920fdbb9c5356d75505921d49745de724e7c8158e26f460@ec2-63-34-180-86.eu-west-1.compute.amazonaws.com
+      POSTGRES_DB: dfpbr17go54ivc
+    ports:
+      - 5432:5432
+    # volumes:
+    #   - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - node_network
+
+  server-dev:
+    profiles: ["dev"]
+    container_name: serverdev
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    build: 
+      context: .
+      target: development
+    depends_on:
+      - db
+    networks:
+      - node_network
+    ports:
+      - "3000:3000"
+ 
+  server-prod:
+    profiles: ["prod"]
+    container_name: serverprod
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    build: 
+      context: .
+      target: production
+    depends_on:
+      - db
+    networks:
+      - node_network
+    ports:
+      - "3000:3000"
+
+networks:
+  node_network:
