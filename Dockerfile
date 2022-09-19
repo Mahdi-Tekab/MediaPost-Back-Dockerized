@@ -9,8 +9,8 @@ COPY --chown=node:node package*.json ./
 
 RUN npm i 
 
-COPY --chown=node:node . .
 
+COPY --chown=node:node . .
 RUN npm run build
 
 RUN npx prisma generate --schema=./prisma/schema.prisma
