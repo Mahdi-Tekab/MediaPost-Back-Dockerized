@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY --chown=node:node package*.json ./
 
-RUN npm i
+RUN npm i 
 
 COPY --chown=node:node . .
 
